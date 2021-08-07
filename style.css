@@ -64,6 +64,8 @@ main {
 }
 .fiche_photographe a > img {
   border-radius: 50%;
+  width: 250px;
+  height: 250px;
 }
 .fiche_photographe a > h2 {
   color: #D3573C;

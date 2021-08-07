@@ -16,7 +16,7 @@
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./service */ \"./js/service.js\");\n\r\n(0,_service__WEBPACK_IMPORTED_MODULE_0__.lecture)();\n\n//# sourceURL=webpack://fisheye/./js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./service */ \"./js/service.js\");\n\r\n\r\nconst main = document.querySelector(\".conteneur\");\r\n\r\nasync function lecturePhotographes () {\r\n   const photographes = await (0,_service__WEBPACK_IMPORTED_MODULE_0__.getPhotographes)();\r\n   console.log(\"photographes: \",photographes);\r\n   for (let index = 0; index < photographes.length; index++) {\r\n       const photographe = photographes[index];\r\n       affichage(photographe); \r\n   }\r\n}\r\n\r\nlecturePhotographes();\r\n\r\nfunction affichage(photographe){ \r\n    const fichePhotographe = document.createElement(\"div\");\r\n    fichePhotographe.classList.add(\"fiche_photographe\");\r\n    \r\n    const lien = lienPhotographe(photographe);\r\n    fichePhotographe.appendChild(lien);\r\n    main.appendChild(fichePhotographe);\r\n}\r\n\r\nfunction lienPhotographe(photographe) {\r\n    const lien = document.createElement(\"a\"); \r\n    lien.href = \"photographe.html\"; \r\n\r\n    const img = document.createElement(\"img\");\r\n    img.src = \"images/photographers/\" + photographe.portrait;\r\n    lien.appendChild(img);\r\n\r\n    return lien;\r\n}\n\n//# sourceURL=webpack://fisheye/./js/index.js?");
 
 /***/ }),
 
@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ser
   \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"lecture\": () => (/* binding */ lecture)\n/* harmony export */ });\nconst lecture =  async() => {\r\n    try {\r\n       const reponse = await fetch(\"../data.json\");\r\n       const datas = await reponse.json();\r\n       console.log(\"donnees: \", datas);\r\n    } catch (error) {\r\n       console.error(error);\r\n    }\r\n}\n\n//# sourceURL=webpack://fisheye/./js/service.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"lecture\": () => (/* binding */ lecture),\n/* harmony export */   \"getPhotographes\": () => (/* binding */ getPhotographes)\n/* harmony export */ });\nconst lecture =  async() => {\r\n    try {\r\n       const reponse = await fetch(\"../data.json\");\r\n       const datas = await reponse.json();\r\n       console.log(\"donnees: \", datas);\r\n       return datas;\r\n    } catch (error) {\r\n       console.error(error);\r\n    }\r\n}\r\n\r\nconst getPhotographes = async() => {\r\n   const donnees =  await lecture();\r\n   return donnees.photographers;\r\n\r\n}\n\n//# sourceURL=webpack://fisheye/./js/service.js?");
 
 /***/ })
 
