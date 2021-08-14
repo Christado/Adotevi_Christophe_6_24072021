@@ -7,7 +7,7 @@
     "test": "echo \"Error: notest specified\" && exit 1",
     "watch": "webpack --mode=development --watch",
     "dev": "webpack --mode=development",
-    "prod": "webpack --mode=production"
+    "prod": "webpack --mode=production" 
   },
   "repository": {
     "type": "git",
