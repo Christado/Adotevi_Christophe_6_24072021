@@ -14,3 +14,12 @@ export const getPhotographes = async() => {
    return donnees.photographers;
 
 }
+
+export const getPhotographe = async(id) => {
+   const photographers =  await getPhotographes();
+   const photographe = photographers.find(function(photographe){
+      return photographe.id == id;
+   })
+   return photographe;
+
+}
