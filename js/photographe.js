@@ -24,15 +24,20 @@ function affichage(photographe){
     document.querySelector(".localisation").innerText = photographe.city + ", " + photographe.country; 
     document.querySelector(".slogant").innerText = photographe.tagline;
     document.querySelector(".tarif").innerText = photographe.price + " € / jour ";
-    document.querySelector("ul").innerText = " # " + photographe.tags ;
+    //document.querySelector("ul").innerText = " # " + photographe.tags ;//
 
-   
+
     const fichePhotographe = document.createElement("section");
     fichePhotographe.classList.add("header_photographe");
     
+    const tagperso = tagPhotographe(photographe);
+    fichePhotographe.appendChild(tagperso);
+
+
     const lien = lienPhotographe(photographe);
     fichePhotographe.appendChild(lien);
 
+   
     /*const lieux = document.createElement("p");  
     lieux.classList.add("localisation");
     lieux.innerText = photographe.city + ", " + photographe.country;
@@ -69,13 +74,16 @@ function lienPhotographe(photographe) {
 
 function tagPhotographe(photographe) {
     const tag1 = document.createElement("nav"); 
+    tag1.classList.add("tag1")
     const tag2 = document.createElement("ul");
+    tag2.classList.add("tag")
     const tags = photographe.tags;
 
     for (let index = 0; index < tags.length; index++) {
         const tag = tags[index];
         const tagli = document.createElement("li"); 
-        tagli.innerText = tags;
+        tagli.classList.add("tagselect")
+        tagli.innerText = " # " + tag;
         tag2.appendChild(tagli);
         
     }
