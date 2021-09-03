@@ -1,0 +1,138 @@
+* {
+    font-family: "DM Sans", sans-serif;
+  }
+
+  .header_photographe {
+    background-color: #FAFAFA;
+    margin: auto;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    justify-content: space-between;
+    height: 250px;
+  }  
+  
+
+  header > a img {
+    width: 15%;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 3%;
+  }
+
+section > a img { 
+
+    margin-top: -20px;
+    margin-bottom: 10px;
+    margin-left: 1100px;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    box-shadow: 0px 0px 30px 7px rgb(0 0 0 / 20%);
+}
+
+h2 {
+
+    font-size: 55px;
+    color: #D3573C;
+    font-weight: 400;
+    margin-bottom: 1%;
+    margin-top: -2%;
+}
+
+.localisation {
+    color: #901C1C;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+
+
+  .slogant {
+
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    
+  }
+
+
+
+
+section > a p {
+
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.tag1 {
+
+  display: flex;
+  justify-content: space-between;
+  margin: 0.1875em;
+  padding: 0;
+  width: 100%; 
+}
+
+
+
+ .tag { 
+
+    list-style: none;
+    box-sizing: border-box;
+    border-radius: 11px;
+    color: #901C1C;
+    font-weight: 500;
+    font-size: 1em;
+    margin-right: 0.5em;
+    padding: 0.2em;
+}
+
+.tagselect:hover { 
+
+    color: white;
+  background-color: #901C1C;
+  cursor: pointer;
+}
+
+.tagselect {
+
+    display: inline;
+    color: #901C1C;
+    font-size: 20px;
+    font-weight: bold;
+    border: solid 0.5px #C4C4C4;
+    border-radius: 11px;
+    padding: 3px 7px 3px 7px;
+    margin-right: 5px;
+}
+
+.tarif {
+
+    position: fixed;
+    bottom: -10px;
+    right: 135px;
+    font-size: 24px;
+    font-weight: 500;
+    background-color: #DB8876;
+    padding: 25px 34px;
+    border-radius: 5px 5px 0 0;
+}
+ 
+
+
+

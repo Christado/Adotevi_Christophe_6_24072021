@@ -20,30 +20,35 @@ function affichage(photographe){
 
     
 
-    document.querySelector(".nom").innerText = photographe.name;
-    document.querySelector(".localisation").innerText = photographe.city + ", " + photographe.country; 
-    document.querySelector(".slogant").innerText = photographe.tagline;
-    document.querySelector(".tarif").innerText = photographe.price + " € / jour ";
+   // document.querySelector(".nom").innerText = photographe.name;
+   // document.querySelector(".localisation").innerText = photographe.city + ", " + photographe.country; 
+   // document.querySelector(".slogant").innerText = photographe.tagline;
+   // document.querySelector(".tarif").innerText = photographe.price + " € / jour ";
     //document.querySelector("ul").innerText = " # " + photographe.tags ;//
 
 
     const fichePhotographe = document.createElement("section");
     fichePhotographe.classList.add("header_photographe");
     
-    const tagperso = tagPhotographe(photographe);
-    fichePhotographe.appendChild(tagperso);
+    //const tagperso = tagPhotographe(photographe);
+    //fichePhotographe.appendChild(tagperso);
 
 
     const lien = lienPhotographe(photographe);
     fichePhotographe.appendChild(lien);
+    
 
-   
-    /*const lieux = document.createElement("p");  
+    const nom1 = document.createElement("h2"); 
+    nom1.innerText = photographe.name;
+    fichePhotographe.appendChild(nom1);
+
+    const lieux = document.createElement("p");  
     lieux.classList.add("localisation");
     lieux.innerText = photographe.city + ", " + photographe.country;
     fichePhotographe.appendChild(lieux);
     
-    const descrip1 = document.createElement("p"); 
+    const descrip1 = document.createElement("p");
+    descrip1.classList.add("slogant"); 
     descrip1.innerText = photographe.tagline;
     fichePhotographe.appendChild(descrip1);
     
@@ -52,7 +57,7 @@ function affichage(photographe){
     tarifs.innerText = photographe.price + " € / jour ";
     fichePhotographe.appendChild(tarifs);
     const tags = tagPhotographe(photographe);
-    fichePhotographe.appendChild(tags);*/
+    fichePhotographe.appendChild(tags);
     
     main.appendChild(fichePhotographe); 
 }
@@ -65,9 +70,9 @@ function lienPhotographe(photographe) {
     img.src = "images/photographers/" + photographe.portrait;
     lien.appendChild(img);
     
-    /*const nom = document.createElement("h2"); 
-    nom.innerText = photographe.name;
-    lien.appendChild(nom);*/
+    //const nom = document.createElement("h2"); //
+    //nom.innerText = photographe.name;//
+    //lien.appendChild(nom);//
 
     return lien ;   
 }
