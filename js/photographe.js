@@ -1,99 +1,86 @@
-import {getPhotographe} from "./service";
+/* eslint-disable no-console */
+import { getPhotographe, getMedia } from './service';
 
 const params = new URLSearchParams(window.location.search);
-const idphotographe = params.get("id");
-console.log(idphotographe)
+const idphotographe = params.get('id');
+// eslint-disable-next-line no-console
+console.log(idphotographe);
 
-const main = document.querySelector(".conteneur");
-
-async function lecturePhotographe () {
-    const photographe = await getPhotographe(idphotographe);
-    console.log("photographe: ",photographe);
-    
-    affichage(photographe); 
-    
- }
-
- lecturePhotographe();
-
-function affichage(photographe){ 
-
-    
-
-   // document.querySelector(".nom").innerText = photographe.name;
-   // document.querySelector(".localisation").innerText = photographe.city + ", " + photographe.country; 
-   // document.querySelector(".slogant").innerText = photographe.tagline;
-   // document.querySelector(".tarif").innerText = photographe.price + " € / jour ";
-    //document.querySelector("ul").innerText = " # " + photographe.tags ;//
-
-
-    const fichePhotographe = document.createElement("section");
-    fichePhotographe.classList.add("header_photographe");
-    
-    //const tagperso = tagPhotographe(photographe);
-    //fichePhotographe.appendChild(tagperso);
-
-
-    const lien = lienPhotographe(photographe);
-    fichePhotographe.appendChild(lien);
-    
-
-    const nom1 = document.createElement("h2"); 
-    nom1.innerText = photographe.name;
-    fichePhotographe.appendChild(nom1);
-
-    const lieux = document.createElement("p");  
-    lieux.classList.add("localisation");
-    lieux.innerText = photographe.city + ", " + photographe.country;
-    fichePhotographe.appendChild(lieux);
-    
-    const descrip1 = document.createElement("p");
-    descrip1.classList.add("slogant"); 
-    descrip1.innerText = photographe.tagline;
-    fichePhotographe.appendChild(descrip1);
-    
-    const tarifs = document.createElement("p"); 
-    tarifs.classList.add("tarif");
-    tarifs.innerText = photographe.price + " € / jour ";
-    fichePhotographe.appendChild(tarifs);
-    const tags = tagPhotographe(photographe);
-    fichePhotographe.appendChild(tags);
-    
-    main.appendChild(fichePhotographe); 
-}
+const main = document.querySelector('.conteneur');
 
 function lienPhotographe(photographe) {
-    const lien = document.createElement("a"); 
-    lien.href = "photographe.html"; 
+  const lien = document.createElement('a');
+  lien.href = 'photographe.html';
 
-    const img = document.createElement("img");
-    img.src = "images/photographers/" + photographe.portrait;
-    lien.appendChild(img);
-    
-    //const nom = document.createElement("h2"); //
-    //nom.innerText = photographe.name;//
-    //lien.appendChild(nom);//
+  const img = document.createElement('img');
+  img.src = `images/photographers/${photographe.portrait}`;
+  lien.appendChild(img);
 
-    return lien ;   
+  return lien;
 }
 
 function tagPhotographe(photographe) {
-    const tag1 = document.createElement("nav"); 
-    tag1.classList.add("tag1")
-    const tag2 = document.createElement("ul");
-    tag2.classList.add("tag")
-    const tags = photographe.tags;
+  const tag1 = document.createElement('nav');
+  tag1.classList.add('tag1');
+  const tag2 = document.createElement('ul');
+  tag2.classList.add('tag');
+  const { tags } = photographe;
 
-    for (let index = 0; index < tags.length; index++) {
-        const tag = tags[index];
-        const tagli = document.createElement("li"); 
-        tagli.classList.add("tagselect")
-        tagli.innerText = " # " + tag;
-        tag2.appendChild(tagli);
-        
-    }
+  // eslint-disable-next-line no-plusplus
+  for (let index = 0; index < tags.length; index++) {
+    const tag = tags[index];
+    const tagli = document.createElement('li');
+    tagli.classList.add('tagselect');
+    tagli.innerText = ` # ${tag}`;
+    tag2.appendChild(tagli);
+  }
 
-    tag1.appendChild(tag2);
+  tag1.appendChild(tag2);
 
-    return tag1;
+  return tag1;
 }
+
+function affichage(photographe) {
+  const fichePhotographe = document.createElement('section');
+  fichePhotographe.classList.add('header_photographe');
+
+  const lien = lienPhotographe(photographe);
+  fichePhotographe.appendChild(lien);
+
+  const nom1 = document.createElement('h2');
+  nom1.innerText = photographe.name;
+  fichePhotographe.appendChild(nom1);
+
+  const lieux = document.createElement('p');
+  lieux.classList.add('localisation');
+  lieux.innerText = `${photographe.city}, ${photographe.country}`;
+  fichePhotographe.appendChild(lieux);
+
+  const descrip1 = document.createElement('p');
+  descrip1.classList.add('slogant');
+  descrip1.innerText = photographe.tagline;
+  fichePhotographe.appendChild(descrip1);
+
+  const tarifs = document.createElement('p');
+  tarifs.classList.add('tarif');
+  tarifs.innerText = `${photographe.price} € / jour `;
+  fichePhotographe.appendChild(tarifs);
+  const tags = tagPhotographe(photographe);
+  fichePhotographe.appendChild(tags);
+
+  main.appendChild(fichePhotographe);
+}
+
+async function lecturePhotographe() {
+  const photographe = await getPhotographe(idphotographe);
+  console.log('photographe: ', photographe);
+  affichage(photographe);
+}
+
+lecturePhotographe();
+
+async function loadMedia() {
+  const photographeMedias = await getMedia(idphotographe);
+  console.log('Media: ', photographeMedias);
+}
+loadMedia();
