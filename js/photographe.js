@@ -41,7 +41,7 @@ function tagPhotographe(photographe) {
 }
 
 function affichage(photographe) {
-  const fichePhotographe = document.createElement('section');
+  const fichePhotographe = document.querySelector('section');
   fichePhotographe.classList.add('header_photographe');
 
   const lien = lienPhotographe(photographe);
