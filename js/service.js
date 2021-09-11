@@ -1,6 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-console */
-// eslint-disable-next-line consistent-return
 export const lecture = async () => {
   try {
     const reponse = await fetch('../data.json');
@@ -9,6 +6,7 @@ export const lecture = async () => {
     return datas;
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
@@ -19,10 +17,8 @@ export const getPhotographes = async () => {
 
 export const getPhotographe = async (id) => {
   const photographers = await getPhotographes();
-  // eslint-disable-next-line prefer-arrow-callback
-  // eslint-disable-next-line no-shadow
   // eslint-disable-next-line eqeqeq
-  const photographe = photographers.find((photographe) => photographe.id == id);
+  const photographe = photographers.find((photographe1) => photographe1.id == id);
   return photographe;
 };
 
