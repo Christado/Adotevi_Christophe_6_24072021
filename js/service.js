@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export const lecture = async () => {
   try {
     const reponse = await fetch('../data.json');
