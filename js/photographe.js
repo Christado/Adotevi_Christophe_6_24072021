@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import MediaFactory from './mediaFactory';
 import { getPhotographe, getMedia } from './service';
 
 const params = new URLSearchParams(window.location.search);
@@ -79,8 +80,16 @@ async function lecturePhotographe() {
 
 lecturePhotographe();
 
+// eslint-disable-next-line no-unused-vars
+function affichageMedia(media) {
+  const mediaFactory = new MediaFactory('image');
+  const contMedia = document.querySelector('.portfolio--photo-container');
+  contMedia.appendChild(mediaFactory.htmlContent());
+}
+
 async function loadMedia() {
   const photographeMedias = await getMedia(idphotographe);
   console.log('Media: ', photographeMedias);
+  affichageMedia();
 }
 loadMedia();

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
-class VideoFactory {
+export default class VideoFactory {
   constructor(video) {
     // eslint-disable-next-line no-undef
     this.video1 = creationVideo;

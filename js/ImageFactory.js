@@ -1,15 +1,12 @@
-/* eslint-disable no-undef */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-unused-vars */
-class imageFactory {
-  constructor(image) {
-    // eslint-disable-next-line no-undef
-    this.image1 = creationImage;
+export default class ImageFactory {
+  constructor(data) {
+    this.image1 = this.fabriqueImage(data);
   }
 
-  fabriqueImage() {
-    media = document.createElement('figure');
-    media.className = 'photo photo-3rd';
+  // eslint-disable-next-line no-unused-vars
+  fabriqueImage(data) {
+    this.media = document.createElement('figure');
+    this.media.className = 'photo photo-3rd';
     const image = document.createElement('img');
     image.className = 'photo-picture';
     image.src = './img/Mimi/Animals_Rainbow.jpg';
@@ -32,7 +29,13 @@ class imageFactory {
     affspan2.innerText = '70 €';
     footer.appendChild(affspan2);
 
-    media.appendChild(image);
-    media.appendChild(footer);
+    this.media.appendChild(image);
+    this.media.appendChild(footer);
+
+    return this.media;
+  }
+
+  htmlContent() {
+    return this.image1;
   }
 }
