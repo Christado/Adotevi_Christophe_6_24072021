@@ -1,14 +1,17 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-console */
 import MediaFactory from './mediaFactory';
 import { getPhotographe, getMedia } from './service';
 
 const params = new URLSearchParams(window.location.search);
 const idphotographe = params.get('id');
+let photographe = null;
 // eslint-disable-next-line no-console
 console.log(idphotographe);
 
 const main = document.querySelector('.conteneur');
 
+// eslint-disable-next-line no-shadow
 function lienPhotographe(photographe) {
   const lien = document.createElement('a');
   lien.href = 'photographe.html';
@@ -72,27 +75,31 @@ function affichage(photographe) {
   main.appendChild(fichePhotographe);
 }
 
-async function lecturePhotographe() {
-  const photographe = await getPhotographe(idphotographe);
-  console.log('photographe: ', photographe);
-  affichage(photographe);
-}
-
-lecturePhotographe();
-
 // eslint-disable-next-line no-unused-vars
 function affichageMedia(media) {
-  const mediaFactory = new MediaFactory('image');
+  const mediaType = media.image ? 'image' : 'video';
+  // eslint-disable-next-line no-param-reassign
+  media.photographeName = photographe.name;
+  const mediaFactory = new MediaFactory(mediaType, media);
   const contMedia = document.querySelector('.portfolio--photo-container');
   contMedia.appendChild(mediaFactory.htmlContent());
-  const mediaFactoryV = new MediaFactory('video');
-  const contMediav = document.querySelector('.portfolio--photo-container');
-  contMediav.appendChild(mediaFactoryV.htmlContent());
 }
 
 async function loadMedia() {
   const photographeMedias = await getMedia(idphotographe);
   console.log('Media: ', photographeMedias);
-  affichageMedia();
+  // eslint-disable-next-line no-plusplus
+  for (let index = 0; index < photographeMedias.length; index++) {
+    const mediaphotographe = photographeMedias[index];
+    affichageMedia(mediaphotographe);
+  }
 }
-loadMedia();
+
+async function lecturePhotographe() {
+  photographe = await getPhotographe(idphotographe);
+  console.log('photographe: ', photographe);
+  affichage(photographe);
+  loadMedia();
+}
+
+lecturePhotographe();

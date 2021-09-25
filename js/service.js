@@ -26,5 +26,6 @@ export const getPhotographe = async (id) => {
 export const getMedia = async (id) => {
   const donnees = await lecture();
   const medias = donnees.media;
-  return medias.filter((media) => media.photographerId === id);
+  // eslint-disable-next-line eqeqeq
+  return medias.filter((media) => media.photographerId == id);
 };
