@@ -1,17 +1,18 @@
-/* eslint-disable no-undef */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-unused-vars */
 export default class VideoFactory {
-  constructor(video) {
-    // eslint-disable-next-line no-undef
-    this.video1 = creationVideo;
+  constructor(data) {
+    this.video1 = this.fabriqueVideo(data);
   }
 
-  fabriqueVideo() {
-    media = document.createElement('figure');
-    media.className = 'photo photo-3rd';
+  // eslint-disable-next-line no-unused-vars
+  fabriqueVideo(data) {
+    this.media = document.createElement('figure');
+    this.media.className = 'photo photo-3rd';
     const video = document.createElement('video');
-    video.className = 'photo-picture';
+    video.controls = 'photo-picture';
+    video.style.width = ' inherit ';
+    video.style.height = 'inherit';
+    video.style.ObjectFit = 'cover';
+    video.style.borderRadius = '5px';
     video.src = './img/Mimi/Animals_Wild_Horses_in_the_mountains.mp4';
 
     const footer = document.createElement('footer');
@@ -32,7 +33,13 @@ export default class VideoFactory {
     affspan2.innerText = '70 €';
     footer.appendChild(affspan2);
 
-    media.appendChild(video);
-    media.appendChild(footer);
+    this.media.appendChild(video);
+    this.media.appendChild(footer);
+
+    return this.media;
+  }
+
+  htmlContent() {
+    return this.video1;
   }
 }

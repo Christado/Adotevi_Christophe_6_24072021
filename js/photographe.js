@@ -85,6 +85,9 @@ function affichageMedia(media) {
   const mediaFactory = new MediaFactory('image');
   const contMedia = document.querySelector('.portfolio--photo-container');
   contMedia.appendChild(mediaFactory.htmlContent());
+  const mediaFactoryV = new MediaFactory('video');
+  const contMediav = document.querySelector('.portfolio--photo-container');
+  contMediav.appendChild(mediaFactoryV.htmlContent());
 }
 
 async function loadMedia() {
