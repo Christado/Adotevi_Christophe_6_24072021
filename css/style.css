@@ -132,12 +132,31 @@ section > a p {
 
     position: fixed;
     bottom: -10px;
-    right: 135px;
+    right: 13px;
     font-size: 24px;
     font-weight: 500;
     background-color: #DB8876;
-    padding: 25px 34px;
+    padding: 20px 187px;
     border-radius: 5px 5px 0 0;
+    display: flex;
+    margin-bottom: 16%;
+}
+
+.likes {
+
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1px;
+  margin-left: -250px;
+  padding-left: 10px
+}
+
+.likes i {
+
+  font-weight: 900;
+  margin-left: 5px;
+  font-size: 25px;
+  line-height: 1;
 }
  
 .header_photographe .container-profile__button {
@@ -160,9 +179,10 @@ section > a p {
   margin: 20px 0 58px 100px;
   font-weight: 700;
   font-size: 18px;
-  position: absolute;
-  padding: 0%;
+  padding: 4%;
   margin-top: 1%;
+  padding-left: 0.01%;
+  margin-left: 0.01%;
 }
 
 .popularity-button {

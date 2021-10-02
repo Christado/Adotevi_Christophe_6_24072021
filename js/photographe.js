@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-console */
+
 import MediaFactory from './mediaFactory';
 import { getPhotographe, getMedia } from './service';
 
@@ -65,18 +66,50 @@ function affichage(photographe) {
   descrip1.innerText = photographe.tagline;
   fichePhotographe.appendChild(descrip1);
 
+  const coeur = document.createElement('i');
+  const totalikes = document.createElement('p');
   const tarifs = document.createElement('p');
   tarifs.classList.add('tarif');
+  totalikes.classList.add('likes');
+  coeur.className = 'fas fa-heart fa-lg';
   tarifs.innerText = `${photographe.price} € / jour `;
+  totalikes.innerText = '200 ';
+
   fichePhotographe.appendChild(tarifs);
+  tarifs.appendChild(totalikes);
+  totalikes.appendChild(coeur);
   const tags = tagPhotographe(photographe);
   fichePhotographe.appendChild(tags);
 
   main.appendChild(fichePhotographe);
+
+  const engager = document.createElement('button');
+  engager.classList.add('container-profile__button');
+  engager.innerText = 'Engagez-moi';
+  fichePhotographe.appendChild(engager);
 }
 
+function trier() {
+  const fichePhotographe = document.querySelector('section');
+  fichePhotographe.classList.add('header_photographe');
+
+  const triage = document.createElement('div');
+  triage.classList.add('sort-by');
+  const texte1 = document.createElement('span');
+  texte1.innerText = 'Triez-par';
+  triage.appendChild(texte1);
+  const triPopul = document.createElement('button');
+  triPopul.classList.add('popularity-button');
+  triPopul.innerText = 'Popularité';
+  triage.appendChild(triPopul);
+
+  const derouleur = document.createElement('i');
+  derouleur.className = ('fas fa-chevron-down');
+  triPopul.appendChild(derouleur);
+  fichePhotographe.appendChild(triage);
+}
 // eslint-disable-next-line no-unused-vars
-function affichageMedia(media) {
+export function affichageMedia(media) {
   const mediaType = media.image ? 'image' : 'video';
   // eslint-disable-next-line no-param-reassign
   media.photographeName = photographe.name;
@@ -85,7 +118,7 @@ function affichageMedia(media) {
   contMedia.appendChild(mediaFactory.htmlContent());
 }
 
-async function loadMedia() {
+export async function loadMedia() {
   const photographeMedias = await getMedia(idphotographe);
   console.log('Media: ', photographeMedias);
   // eslint-disable-next-line no-plusplus
@@ -95,11 +128,12 @@ async function loadMedia() {
   }
 }
 
-async function lecturePhotographe() {
+export async function lecturePhotographe() {
   photographe = await getPhotographe(idphotographe);
   console.log('photographe: ', photographe);
   affichage(photographe);
   loadMedia();
+  trier();
 }
 
 lecturePhotographe();
