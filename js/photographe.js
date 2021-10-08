@@ -45,7 +45,7 @@ function tagPhotographe(photographe) {
   return tag1;
 }
 
-function affichage(photographe) {
+export function affichage(photographe) {
   const fichePhotographe = document.querySelector('section');
   fichePhotographe.classList.add('header_photographe');
 
@@ -108,6 +108,115 @@ function trier() {
   triPopul.appendChild(derouleur);
   fichePhotographe.appendChild(triage);
 }
+
+function creationModal() {
+  const fichePhotographe = document.querySelector('.conteneur');
+
+  const pageModal = document.createElement('dialog');
+  pageModal.className = 'contactModall';
+  pageModal.setAttribute('role', 'dialog');
+  pageModal.setAttribute('aria-labelledby', 'contact_modal__body__title');
+  pageModal.ariaModal = 'true';
+  pageModal.ariaHidden = 'true';
+  pageModal.tabIndex = '-1';
+  pageModal.innerHTML = `
+        <div class="contact_modal__body">
+            <h2 class="contact_modal__body__title"> Contactez-moi <br> </h2>
+            <button id="close_contact_modal" class="close_button" title="fermer la fenêtre" aria-label="close dialog" tabindex="-1">
+                <i class="fas fa-times fa-3x" aria-hidden="true"></i>
+            </button>     
+        </div> 
+        `;
+  fichePhotographe.appendChild(pageModal);
+}
+
+function createContactForm() {
+  const ctcmodal = document.querySelector('.contact_modal__body');
+  const contactForm = document.createElement('form');
+  contactForm.className = 'contact_form';
+  contactForm.method = ('method', 'post');
+  contactForm.setAttribute = ('action', 'submit');
+
+  ctcmodal.appendChild(contactForm);
+}
+
+function createFormFields() {
+  const contactForm = document.querySelector('.contact_form');
+
+  // Prenom
+  const prenom = document.createElement('div');
+  prenom.innerHTML = `
+  <div class="fieldset">
+      <label for="firstname"> Prenom </label> <br> 
+      <input class="input_field" type="text" tabindex="-1" id="firstname">
+  </div> 
+  `;
+  contactForm.appendChild(prenom);
+
+  // Nom
+  const nom = document.createElement('div');
+  nom.innerHTML = `
+ <div class="fieldset">
+     <label for="lastname"> Nom </label> <br> 
+     <input class="input_field" type="text" tabindex="-1" id="lastname">
+ </div> 
+ `;
+  contactForm.appendChild(nom);
+
+  // Email
+  const email = document.createElement('div');
+  email.innerHTML = `
+  <div class="fieldset">
+      <label for="email"> Email </label> <br> 
+      <input class="input_field" type="text" tabindex="-1" id="email">
+  </div> 
+  `;
+  contactForm.appendChild(email);
+
+  // Message
+  const message = document.createElement('div');
+  message.innerHTML = `
+  <div class="fieldset">
+      <label for="message"> Message </label> <br> 
+      <textarea class="input_field" id="message" tabindex="-1" rows="5"></textarea>
+  </div> 
+  `;
+  contactForm.appendChild(message);
+}
+
+// Bouton d'envoi//
+
+function createModalButton() {
+  const modalBody = document.querySelector('.contact_modal__body');
+  const modalButton = document.createElement('button');
+  modalButton.innerHTML = `
+  <button class="button_contact submit_button" type="submit" tabindex="-1">Envoyer</button>
+  `;
+
+  modalBody.appendChild(modalButton);
+}
+
+// Ouverture et Fermeture du modal //
+
+function showContactModal() {
+  const contactModal = document.querySelector('.contactModall');
+  contactModal.style.display = 'block';
+}
+
+function eventOnOpen() {
+  const OpenButton = document.querySelector('.container-profile__button');
+  OpenButton.addEventListener('click', () => showContactModal());
+}
+
+function closeContactModal() {
+  const contactModal = document.querySelector('.contactModall');
+  contactModal.style.display = 'none';
+}
+
+function eventOnClose() {
+  const closeButton = document.querySelector('.close_button');
+  closeButton.addEventListener('click', () => closeContactModal());
+}
 // eslint-disable-next-line no-unused-vars
 export function affichageMedia(media) {
   const mediaType = media.image ? 'image' : 'video';
@@ -134,6 +243,14 @@ export async function lecturePhotographe() {
   affichage(photographe);
   loadMedia();
   trier();
+  creationModal();
+  createContactForm();
+  createFormFields();
+  createModalButton();
+  showContactModal();
+  eventOnOpen();
+  closeContactModal();
+  eventOnClose();
 }
 
 lecturePhotographe();
