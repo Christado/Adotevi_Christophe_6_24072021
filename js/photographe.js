@@ -3,15 +3,22 @@
 
 import MediaFactory from './mediaFactory';
 import { getPhotographe, getMedia } from './service';
+import sort from './sort';
 
 const params = new URLSearchParams(window.location.search);
 const idphotographe = params.get('id');
 let photographe = null;
+let photographeMedias = [];
 // eslint-disable-next-line no-console
 console.log(idphotographe);
 
 const main = document.querySelector('.conteneur');
-
+const totalikesText = document.createTextNode('');
+function handleLikeChange() {
+  const nbrlike = totalikesText.nodeValue;
+  totalikesText.nodeValue = Number(nbrlike) + 1;
+  console.log(nbrlike);
+}
 // eslint-disable-next-line no-shadow
 function lienPhotographe(photographe) {
   const lien = document.createElement('a');
@@ -73,11 +80,10 @@ export function affichage(photographe) {
   totalikes.classList.add('likes');
   coeur.className = 'fas fa-heart fa-lg';
   tarifs.innerText = `${photographe.price} € / jour `;
-  totalikes.innerText = '200 ';
 
   fichePhotographe.appendChild(tarifs);
   tarifs.appendChild(totalikes);
-  totalikes.appendChild(coeur);
+  totalikes.append(totalikesText, coeur);
   const tags = tagPhotographe(photographe);
   fichePhotographe.appendChild(tags);
 
@@ -98,14 +104,30 @@ function trier() {
   const texte1 = document.createElement('span');
   texte1.innerText = 'Triez-par';
   triage.appendChild(texte1);
-  const triPopul = document.createElement('button');
-  triPopul.classList.add('popularity-button');
-  triPopul.innerText = 'Popularité';
-  triage.appendChild(triPopul);
-
+  const triSelect = document.createElement('select');
+  const optionPopul = document.createElement('option');
+  optionPopul.value = 'populaire';
+  optionPopul.selected = true;
+  optionPopul.innerText = 'Popularité';
+  const optionName = document.createElement('option');
+  optionName.value = 'Title';
+  optionName.innerText = 'Titre';
+  const optionDate = document.createElement('option');
+  optionDate.value = 'date';
+  optionDate.innerText = 'Date';
+  triSelect.classList.add('popularity-button');
+  triSelect.append(optionPopul, optionName, optionDate);
+  triage.appendChild(triSelect);
+  triSelect.addEventListener('change', function (event) {
+    console.log('tri par: ', event.target.value)
+    const medias = sort(photographeMedias, event.target.value)
+    console.table (medias);
+    if ( medias )
+    affichageMedias (medias);
+  });
   const derouleur = document.createElement('i');
   derouleur.className = ('fas fa-chevron-down');
-  triPopul.appendChild(derouleur);
+  triSelect.appendChild(derouleur);
   fichePhotographe.appendChild(triage);
 }
 
@@ -222,19 +244,26 @@ export function affichageMedia(media) {
   const mediaType = media.image ? 'image' : 'video';
   // eslint-disable-next-line no-param-reassign
   media.photographeName = photographe.name;
-  const mediaFactory = new MediaFactory(mediaType, media);
+  const mediaFactory = new MediaFactory(mediaType, media, handleLikeChange);
   const contMedia = document.querySelector('.portfolio--photo-container');
   contMedia.appendChild(mediaFactory.htmlContent());
 }
 
-export async function loadMedia() {
-  const photographeMedias = await getMedia(idphotographe);
-  console.log('Media: ', photographeMedias);
-  // eslint-disable-next-line no-plusplus
-  for (let index = 0; index < photographeMedias.length; index++) {
-    const mediaphotographe = photographeMedias[index];
+function affichageMedias(medias) {
+  const contMedia = document.querySelector('.portfolio--photo-container');
+  contMedia.innerText = '';
+  for (let index = 0; index < medias.length; index += 1) {
+    const mediaphotographe = medias[index];
     affichageMedia(mediaphotographe);
   }
+}
+
+export async function loadMedia() {
+  photographeMedias = await getMedia(idphotographe);
+  const sommeLikes = photographeMedias.reduce((count, media) => count + media.likes, 0);
+  totalikesText.nodeValue = sommeLikes;
+  console.log('Nombre de likes: ', sommeLikes);
+  affichageMedias(photographeMedias);
 }
 
 export async function lecturePhotographe() {

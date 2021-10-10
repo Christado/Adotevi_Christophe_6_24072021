@@ -1,6 +1,7 @@
 export default class ImageFactory {
-  constructor(data) {
+  constructor(data, onLikeChange) {
     this.image1 = this.fabriqueImage(data);
+    this.onLikeChange = onLikeChange;
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -40,6 +41,7 @@ export default class ImageFactory {
     affspan3.addEventListener('click', () => {
       this.mediaData.likes += 1;
       nbrlikes.nodeValue = this.mediaData.likes;
+      this.onLikeChange();
     });
 
     return this.media;

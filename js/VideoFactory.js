@@ -1,6 +1,7 @@
 export default class VideoFactory {
-  constructor(data) {
+  constructor(data,onLikeChange) {
     this.video1 = this.fabriqueVideo(data);
+    this.onLikeChange = onLikeChange;
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -45,6 +46,7 @@ export default class VideoFactory {
     affspan3.addEventListener('click', () => {
       this.mediaData.likes += 1;
       nbrlikes.nodeValue = this.mediaData.likes;
+      this.onLikeChange();
     });
 
     return this.media;
