@@ -1,6 +1,9 @@
+import { openLightBox } from './lightBox';
+
 export default class ImageFactory {
-  constructor(data, onLikeChange) {
+  constructor(data, medias, onLikeChange) {
     this.image1 = this.fabriqueImage(data);
+    this.medias = medias;
     this.onLikeChange = onLikeChange;
   }
 
@@ -43,7 +46,9 @@ export default class ImageFactory {
       nbrlikes.nodeValue = this.mediaData.likes;
       this.onLikeChange();
     });
-
+    this.media.addEventListener('click', () => {
+      openLightBox(this.mediaData, this.medias);
+    });
     return this.media;
   }
 

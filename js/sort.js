@@ -10,7 +10,7 @@ function sortByPopularity(medias) {
 
 function sortByDate(medias) {
   const sortedMedias = medias.sort((media1, media2) => {
-    if (media1.date >= media2.date) {
+    if (new Date(media1.date) >= new Date(media2.date)) {
       return -1;
     }
     return 1;

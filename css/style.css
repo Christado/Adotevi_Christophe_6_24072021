@@ -179,10 +179,11 @@ section > a p {
   margin: 20px 0 58px 100px;
   font-weight: 700;
   font-size: 18px;
-  padding: 4%;
+  padding: 18%;
   margin-top: 1%;
   padding-left: 0.01%;
   margin-left: 0.01%;
+  position: absolute;
 }
 
 .popularity-button {
@@ -225,7 +226,7 @@ section > a p {
 }
 .photo-footer {
   margin-top: 10px;
-  font-size: 24px;
+  font-size: 18px;
   color: #901C1C;
 }
 .photo-footer__likes {

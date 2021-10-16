@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
 /* eslint-disable no-console */
 
@@ -92,6 +93,7 @@ export function affichage(photographe) {
   const engager = document.createElement('button');
   engager.classList.add('container-profile__button');
   engager.innerText = 'Engagez-moi';
+  engager.addEventListener('click', () => showContactModal());
   fichePhotographe.appendChild(engager);
 }
 
@@ -118,18 +120,19 @@ function trier() {
   triSelect.classList.add('popularity-button');
   triSelect.append(optionPopul, optionName, optionDate);
   triage.appendChild(triSelect);
-  triSelect.addEventListener('change', function (event) {
-    console.log('tri par: ', event.target.value)
-    const medias = sort(photographeMedias, event.target.value)
-    console.table (medias);
-    if ( medias )
-    affichageMedias (medias);
+  triSelect.addEventListener('change', (event) => {
+    console.log('tri par: ', event.target.value);
+    const medias = sort(photographeMedias, event.target.value);
+    console.table(medias);
+    if (medias) { affichageMedias(medias); }
   });
   const derouleur = document.createElement('i');
   derouleur.className = ('fas fa-chevron-down');
   triSelect.appendChild(derouleur);
   fichePhotographe.appendChild(triage);
 }
+
+// Création de Modal //
 
 function creationModal() {
   const fichePhotographe = document.querySelector('.conteneur');
@@ -171,6 +174,7 @@ function createFormFields() {
   <div class="fieldset">
       <label for="firstname"> Prenom </label> <br> 
       <input class="input_field" type="text" tabindex="-1" id="firstname">
+      <span class="errorFirstName"></span>
   </div> 
   `;
   contactForm.appendChild(prenom);
@@ -181,6 +185,7 @@ function createFormFields() {
  <div class="fieldset">
      <label for="lastname"> Nom </label> <br> 
      <input class="input_field" type="text" tabindex="-1" id="lastname">
+     <span class="errorLastName"></span> 
  </div> 
  `;
   contactForm.appendChild(nom);
@@ -191,6 +196,7 @@ function createFormFields() {
   <div class="fieldset">
       <label for="email"> Email </label> <br> 
       <input class="input_field" type="text" tabindex="-1" id="email">
+      <span class="errorEmail"></span> 
   </div> 
   `;
   contactForm.appendChild(email);
@@ -200,21 +206,23 @@ function createFormFields() {
   message.innerHTML = `
   <div class="fieldset">
       <label for="message"> Message </label> <br> 
-      <textarea class="input_field" id="message" tabindex="-1" rows="5"></textarea>
+      <textarea class="input_fieldM" id="message" tabindex="-1" rows="5"></textarea>
+      <span class="errorMessage"></span> 
   </div> 
   `;
   contactForm.appendChild(message);
 }
 
-// Bouton d'envoi//
-
+// Bouton du Modal
 function createModalButton() {
   const modalBody = document.querySelector('.contact_modal__body');
   const modalButton = document.createElement('button');
-  modalButton.innerHTML = `
-  <button class="button_contact submit_button" type="submit" tabindex="-1">Envoyer</button>
-  `;
-
+  modalButton.className = 'button_contact_submit';
+  modalButton.type = 'submit';
+  modalButton.tabIndex = -1;
+  modalButton.innerText = 'Envoyer';
+  // eslint-disable-next-line no-use-before-define
+  modalButton.addEventListener('click', () => { closeContactModal(); });
   modalBody.appendChild(modalButton);
 }
 
@@ -225,13 +233,21 @@ function showContactModal() {
   contactModal.style.display = 'block';
 }
 
-function eventOnOpen() {
-  const OpenButton = document.querySelector('.container-profile__button');
-  OpenButton.addEventListener('click', () => showContactModal());
-}
+// function eventOnOpen() {
+// const openButton = document.querySelector('.container-profile__button');
+// openButton.addEventListener('click', () => showContactModal());
+// }
 
 function closeContactModal() {
   const contactModal = document.querySelector('.contactModall');
+  const firstnameInput = document.getElementById('firstname');
+  const lastnameInput = document.getElementById('lastname');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+  console.log('prenom: ', firstnameInput.value);
+  console.log('nom: ', lastnameInput.value);
+  console.log('email: ', emailInput.value);
+  console.log('message: ', messageInput.value);
   contactModal.style.display = 'none';
 }
 
@@ -239,12 +255,18 @@ function eventOnClose() {
   const closeButton = document.querySelector('.close_button');
   closeButton.addEventListener('click', () => closeContactModal());
 }
+
+// function soumettre() {
+// const soumis = document.querySelector('.button_contact_submit');
+// soumis.addEventListener('click', () => closeContactModal());
+// }
+
 // eslint-disable-next-line no-unused-vars
 export function affichageMedia(media) {
   const mediaType = media.image ? 'image' : 'video';
   // eslint-disable-next-line no-param-reassign
   media.photographeName = photographe.name;
-  const mediaFactory = new MediaFactory(mediaType, media, handleLikeChange);
+  const mediaFactory = new MediaFactory(mediaType, media, photographeMedias, handleLikeChange);
   const contMedia = document.querySelector('.portfolio--photo-container');
   contMedia.appendChild(mediaFactory.htmlContent());
 }
@@ -270,6 +292,12 @@ export async function lecturePhotographe() {
   photographe = await getPhotographe(idphotographe);
   console.log('photographe: ', photographe);
   affichage(photographe);
+
+  // soumettre();//
+}
+
+(function init() {
+  lecturePhotographe();
   loadMedia();
   trier();
   creationModal();
@@ -277,9 +305,7 @@ export async function lecturePhotographe() {
   createFormFields();
   createModalButton();
   showContactModal();
-  eventOnOpen();
+  // eventOnOpen();//
   closeContactModal();
   eventOnClose();
-}
-
-lecturePhotographe();
+}());

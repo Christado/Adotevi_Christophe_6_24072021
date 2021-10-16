@@ -1,6 +1,9 @@
+import { openLightBox } from './lightBox';
+
 export default class VideoFactory {
-  constructor(data,onLikeChange) {
+  constructor(data, medias, onLikeChange) {
     this.video1 = this.fabriqueVideo(data);
+    this.medias = medias;
     this.onLikeChange = onLikeChange;
   }
 
@@ -47,6 +50,10 @@ export default class VideoFactory {
       this.mediaData.likes += 1;
       nbrlikes.nodeValue = this.mediaData.likes;
       this.onLikeChange();
+    });
+
+    this.media.addEventListener('click', () => {
+      openLightBox(this.mediaData, this.medias);
     });
 
     return this.media;

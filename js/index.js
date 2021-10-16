@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
+
 import { getPhotographes } from './service';
+import { filterByTag } from './filter';
 
 const main = document.querySelector('.conteneur');
-
+let photographes = [];
 function tagPhotographe(photographe) {
   const tag1 = document.createElement('nav');
   const tag2 = document.createElement('ul');
@@ -61,15 +64,36 @@ export function affichage(photographe) {
   main.appendChild(fichePhotographe);
 }
 
-export async function lecturePhotographes() {
-  const photographes = await getPhotographes();
-  // eslint-disable-next-line no-console
-  console.log('photographes: ', photographes);
-  // eslint-disable-next-line no-plusplus
-  for (let index = 0; index < photographes.length; index++) {
-    const photographe = photographes[index];
+function affichageDesPhotographes(photographers) {
+  main.innerText = '';
+  // eslint-disable-next-line no-restricted-syntax
+  for (const photographe of photographers) {
     affichage(photographe);
   }
 }
 
+async function lecturePhotographes() {
+  photographes = await getPhotographes();
+  // eslint-disable-next-line no-console
+  console.log('photographes: ', photographes);
+  // eslint-disable-next-line no-plusplus
+  affichageDesPhotographes(photographes);
+}
+
+function initFilter() {
+  const tagsInput = document.querySelectorAll('.tag');
+  // eslint-disable-next-line no-restricted-syntax
+  for (const input of tagsInput) {
+    // eslint-disable-next-line no-loop-func
+    input.addEventListener('click', (event) => {
+      const tag = event.currentTarget.id;
+      const filterResult = filterByTag(photographes, tag);
+      affichageDesPhotographes(filterResult);
+      console.log('recherche par tag');
+      console.log('valeur du tag :', event.currentTarget.id);
+    });
+  }
+}
+
 lecturePhotographes();
+initFilter();
