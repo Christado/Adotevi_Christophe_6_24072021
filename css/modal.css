@@ -1,0 +1,94 @@
+.modal {
+    height: 100vh;
+    display: none;
+    position: fixed;
+    width: 95vw;
+    top: 0px;
+    z-index: 1;
+   background-color:white;
+   align-items: center;
+   flex-direction: row;
+   justify-content: space-around;
+   border:none;
+   
+   
+   
+}
+
+.mainLightbox {
+
+    height: 95%;
+    padding-top: 0%;
+    margin-top: 1%;
+    background-color: rgb(230, 223, 215);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.closeIcone {
+position: absolute;
+right: 0;
+top: 0;
+}
+
+.mainLightbox div {
+    height: 100%;
+}
+
+.left, .right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.mediaContent {
+ height: 100%;
+ width: 100%;
+ margin: auto;
+object-fit: cover;
+}
+.items {
+    width: 58%;
+    height: 30%;
+    position: absolute;
+    top: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /*overflow-x: scroll;*/
+}
+
+.item {
+    height: 100px;
+    width: 100px;
+
+}
+.modalContent {
+    height: 100%;
+    width: 60%;
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+    opacity: 1;
+    background-color: white;
+}
+
+#gch, #drt, #cls {
+    color: #901C1C;
+}
+
+
+

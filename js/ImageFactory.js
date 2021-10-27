@@ -10,11 +10,13 @@ export default class ImageFactory {
   // eslint-disable-next-line no-unused-vars
   fabriqueImage(data) {
     this.mediaData = data;
-    this.media = document.createElement('figure');
-    this.media.className = 'photo photo-3rd';
-    const image = document.createElement('img');
-    image.className = 'photo-picture';
-    image.src = `./img/${this.mediaData.photographeName.split(' ')[0]}/${this.mediaData.image}`;
+    const figcont = document.createElement('section');
+    this.media3 = document.createElement('figure');
+    this.media3.className = 'photo photo-3rd';
+    const media = document.createElement('img');
+    media.className = 'photo-picture';
+    media.src = `./img/${this.mediaData.photographeName.split(' ')[0]}/${this.mediaData.image}`;
+    media.alt = this.mediaData.photographeName;
     const footer = document.createElement('footer');
     footer.className = 'photo-footer';
 
@@ -38,18 +40,19 @@ export default class ImageFactory {
     affspan2.innerText = `${this.mediaData.price} €`;
     footer.appendChild(affspan2);
 
-    this.media.appendChild(image);
-    this.media.appendChild(footer);
+    this.media3.appendChild(media);
+    this.media3.appendChild(footer);
+    figcont.appendChild(this.media3);
 
     affspan3.addEventListener('click', () => {
       this.mediaData.likes += 1;
       nbrlikes.nodeValue = this.mediaData.likes;
       this.onLikeChange();
     });
-    this.media.addEventListener('click', () => {
+    media.addEventListener('click', () => {
       openLightBox(this.mediaData, this.medias);
     });
-    return this.media;
+    return this.media3;
   }
 
   htmlContent() {

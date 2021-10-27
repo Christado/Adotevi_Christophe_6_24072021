@@ -92,9 +92,19 @@ export function affichage(photographe) {
 
   const engager = document.createElement('button');
   engager.classList.add('container-profile__button');
-  engager.innerText = 'Engagez-moi';
+  engager.innerText = 'Contactez-moi';
   engager.addEventListener('click', () => showContactModal());
+  engager.addEventListener('click', () => showBgmodal());
   fichePhotographe.appendChild(engager);
+}
+
+function affichagNom(photographe) {
+  const fichePhotographe = document.querySelector('.conteneur');
+  const pageModal1 = document.querySelector('.contactModall');
+  const nom2 = document.querySelector('.contact_modal__body__title');
+  nom2.innerHTML = `Contactez-moi <br> ${photographe.name} `;
+  fichePhotographe.appendChild(pageModal1);
+  pageModal1.appendChild(nom2);
 }
 
 function trier() {
@@ -107,14 +117,18 @@ function trier() {
   texte1.innerText = 'Triez-par';
   triage.appendChild(texte1);
   const triSelect = document.createElement('select');
+
   const optionPopul = document.createElement('option');
+  optionPopul.className = ('optselect1');
   optionPopul.value = 'populaire';
   optionPopul.selected = true;
   optionPopul.innerText = 'Popularité';
   const optionName = document.createElement('option');
+  optionName.className = ('optselect2');
   optionName.value = 'Title';
   optionName.innerText = 'Titre';
   const optionDate = document.createElement('option');
+  optionDate.className = ('optselect3');
   optionDate.value = 'date';
   optionDate.innerText = 'Date';
   triSelect.classList.add('popularity-button');
@@ -134,9 +148,10 @@ function trier() {
 
 // Création de Modal //
 
-function creationModal() {
+export function creationModal() {
   const fichePhotographe = document.querySelector('.conteneur');
-
+  const bgmodal = document.createElement('div');
+  bgmodal.className = 'bgrModal';
   const pageModal = document.createElement('dialog');
   pageModal.className = 'contactModall';
   pageModal.setAttribute('role', 'dialog');
@@ -146,13 +161,14 @@ function creationModal() {
   pageModal.tabIndex = '-1';
   pageModal.innerHTML = `
         <div class="contact_modal__body">
-            <h2 class="contact_modal__body__title"> Contactez-moi <br> </h2>
+            <h2 class="contact_modal__body__title"> Contactez-moi <br>  </h2>
             <button id="close_contact_modal" class="close_button" title="fermer la fenêtre" aria-label="close dialog" tabindex="-1">
                 <i class="fas fa-times fa-3x" aria-hidden="true"></i>
             </button>     
         </div> 
         `;
-  fichePhotographe.appendChild(pageModal);
+  bgmodal.appendChild(pageModal);
+  fichePhotographe.appendChild(bgmodal);
 }
 
 function createContactForm() {
@@ -223,6 +239,7 @@ function createModalButton() {
   modalButton.innerText = 'Envoyer';
   // eslint-disable-next-line no-use-before-define
   modalButton.addEventListener('click', () => { closeContactModal(); });
+  modalButton.addEventListener('click', () => { closeBgmodal(); });
   modalBody.appendChild(modalButton);
 }
 
@@ -231,6 +248,16 @@ function createModalButton() {
 function showContactModal() {
   const contactModal = document.querySelector('.contactModall');
   contactModal.style.display = 'block';
+}
+
+function showBgmodal() {
+  const bgmodal1 = document.querySelector('.bgrModal');
+  bgmodal1.style.display = 'block';
+}
+
+function closeBgmodal() {
+  const bgmodal1 = document.querySelector('.bgrModal');
+  bgmodal1.style.display = 'none';
 }
 
 // function eventOnOpen() {
@@ -254,6 +281,7 @@ function closeContactModal() {
 function eventOnClose() {
   const closeButton = document.querySelector('.close_button');
   closeButton.addEventListener('click', () => closeContactModal());
+  closeButton.addEventListener('click', () => closeBgmodal());
 }
 
 // function soumettre() {
@@ -292,12 +320,14 @@ export async function lecturePhotographe() {
   photographe = await getPhotographe(idphotographe);
   console.log('photographe: ', photographe);
   affichage(photographe);
+  affichagNom(photographe);
 
   // soumettre();//
 }
 
 (function init() {
   lecturePhotographe();
+  // affichagNom();//
   loadMedia();
   trier();
   creationModal();

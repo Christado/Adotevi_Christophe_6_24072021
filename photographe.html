@@ -6,6 +6,7 @@
   <link rel="icon" href="Elements_integration_html/Vector.png" />
   <title>Fisheye - Mimi Keel</title>
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/modal.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -97,7 +98,55 @@
             </figure> -->
 
         </div>
+        
     </main>
+<dialog class="modal">
+    <div class="modalContent">
+          <a class="closeIcone" href="#">
+            <i class="fas fa-times fa-3x" id= "cls" aria-hidden="true"></i>
+
+          </a>
+        
+        <div class="mainLightbox">
+            <div class="left">
+                <a class="prev" href="#"> 
+                    <i class="fas fa-chevron-left fa-3x" id="gch" aria-hidden="true"></i>
+                </a>
+
+            </div>
+            <div class="content">
+                <img class="mediaContent" src="./img/Ellie-Rose/Architecture_Connected_Curves.jpg" alt="">
+
+            </div>
+            <div class="right">
+                <a class="next" href="#">  
+                    <i class="fas fa-chevron-right fa-3x" id="drt" aria-hidden="true"></i>
+                </a>
+
+
+            </div>
+
+        </div>
+        <div class="items">
+            <div class="item">
+                <img class="mediaContent" src="./img/Ellie-Rose/Architecture_Connected_Curves.jpg" alt="">
+            </div>
+            <div class="item">
+                <img class="mediaContent" src="./img/Ellie-Rose/Architecture_Connected_Curves.jpg" alt="">
+            </div>
+            <div class="item">
+                <img class="mediaContent" src="./img/Ellie-Rose/Architecture_Connected_Curves.jpg" alt="">
+            </div>
+            <div class="item">
+                <img class="mediaContent" src="./img/Ellie-Rose/Architecture_Connected_Curves.jpg" alt="">
+            </div>
+            <div class="item">
+                <img class="mediaContent" src="./img/Ellie-Rose/Architecture_Connected_Curves.jpg" alt="">
+            </div>
+
+        </div>
+    </div>  
+    </dialog>
 </body>
 <script src="./dist/photographe.js"></script>
 

@@ -19,6 +19,7 @@ export default class VideoFactory {
     video.style.ObjectFit = 'cover';
     video.style.borderRadius = '5px';
     video.src = `./img/${this.mediaData.photographeName.split(' ')[0]}/${this.mediaData.video}`;
+    video.alt = this.mediaData.photographeName;
 
     const footer = document.createElement('footer');
     footer.className = 'photo-footer';
@@ -52,7 +53,7 @@ export default class VideoFactory {
       this.onLikeChange();
     });
 
-    this.media.addEventListener('click', () => {
+    video.addEventListener('click', () => {
       openLightBox(this.mediaData, this.medias);
     });
 
