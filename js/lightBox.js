@@ -64,6 +64,17 @@ function previous(event) {
 prevButton.addEventListener('click', previous);
 nextButton.addEventListener('click', next);
 
+function toucheDirect() {
+  image.addEventListener('keydown', (e) => {
+    e.preventDefault();
+    if (e.code === 39) {
+      previous();
+    } else if (e.code === 37) {
+      next();
+    }
+  });
+}
+
 export const openLightBox = (media, mediaList) => {
   console.log('media seletionné :', media);
   console.table(mediaList);
@@ -71,6 +82,7 @@ export const openLightBox = (media, mediaList) => {
   showSelectedMedia(media);
 
   showMedialist(mediaList);
+  toucheDirect();
 
   selectedMediaIndex = mediaList.indexOf(media);
   medias = mediaList;

@@ -16,7 +16,7 @@ export default class ImageFactory {
     const media = document.createElement('img');
     media.className = 'photo-picture';
     media.src = `./img/${this.mediaData.photographeName.split(' ')[0]}/${this.mediaData.image}`;
-    media.alt = this.mediaData.photographeName;
+    media.alt = this.mediaData.image;
     const footer = document.createElement('footer');
     footer.className = 'photo-footer';
 

@@ -395,4 +395,152 @@ section > a p {
   border: none;
 }
 
+@media (max-width: 500px) {
+  header > a img {
+    width: 22%;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
 
+.portfolio--photo-container {
+  margin-left: 25px;
+  grid-template-columns: none;
+  margin-top: 300px;
+  display: grid;
+  position: absolute;
+  top: -4%;
+  gap: 71px 5px;
+  padding: 10%;
+  padding-left: 0em;
+  padding-right: 0em;
+}
+
+.photo {
+  margin: unset;
+  width: 350px;
+  height: 300px;
+}
+
+.header_photographe {
+  background-color: white;
+  margin: auto;
+  /*width: 200%;*/
+  display: flex;
+  padding: 1%;
+  justify-content: space-between;
+  height: 250px;
+  position: absolute;
+  top: 10px;
+  padding-left: 1%;
+  margin-top: 10%;
+  margin-bottom: 50%;
+  margin-left: 3%;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.sort-by {
+ 
+  display: none;
+ 
+}
+
+section > a img {
+  margin-top: -3px;
+  margin-bottom: 10px;
+  margin-left: 220px;
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  box-shadow: 0px 0px 30px 7px rgb(0 0 0 / 20%);
+}
+
+h2 {
+  font-size: 25px; 
+  color: #D3573C;
+  font-weight: 400;
+  margin-bottom: 1%;
+  margin-top: -2%;
+  position: absolute;
+  top: 10%;
+}
+
+.localisation {
+  color: #901C1C;
+   
+  font-weight: 400;
+  margin: 0;
+  position: absolute;
+  top: 20%;
+}
+
+.slogant {
+  display: block;
+ 
+  margin-inline-start: 0px;
+  font-size: 12px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  position: absolute;
+  top: 30%;
+  left: -0%;
+}
+
+.tag1 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.1875em;
+  margin-left: -0.7em;
+  padding: 0;
+
+  position: absolute;
+  top: 50%;
+}
+
+.tag {
+  list-style: none;
+  box-sizing: border-box;
+  border-radius: 11px;
+  color: #901C1C;
+  font-weight: 500;
+  font-size: 1em;
+  margin-right: 0.5em;
+  padding: 0.2em;
+}
+
+.tagselect {
+  display: initial;
+  color: #901C1C;
+  font-size: 12px;
+  font-weight: bold;
+  border: solid 0.5px #C4C4C4;
+  border-radius: 11px;
+  padding: 3px 7px 3px 7px;
+
+  justify-content: space-between;
+}
+
+.header_photographe .container-profile__button {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+  color: white;
+  padding: 21px 11px;
+  font-weight: 700;
+  background-color: #901C1C;
+  border-style: unset;
+  border-radius: 5px;
+  cursor: pointer;
+  position: fixed;
+  width: 50%;
+  top: 59%;
+  left: 26%;
+}
+
+}
