@@ -1,18 +1,16 @@
-/* eslint-disable no-console */
-
 import { getPhotographes } from './service';
-import { filterByTag } from './filter';
+import filterByTag from './filter';
 
+// affichage des tags de chaque photographe //
 const main = document.querySelector('.conteneur');
 let photographes = [];
 function tagPhotographe(photographe) {
   const tag1 = document.createElement('nav');
   const tag2 = document.createElement('ul');
-  // eslint-disable-next-line prefer-destructuring
-  const tags = photographe.tags;
 
-  // eslint-disable-next-line no-plusplus
-  for (let index = 0; index < tags.length; index++) {
+  const { tags } = photographe;
+
+  for (let index = 0; index < tags.length; index += 1) {
     const tag = tags[index];
     const tagli = document.createElement('li');
     tagli.innerText = `#${tag}`;
@@ -23,14 +21,15 @@ function tagPhotographe(photographe) {
   return tag1;
 }
 
+// affichage du protrait et nom des photographes //
 export function lienPhotographe(photographe) {
   const lien = document.createElement('a');
-  // eslint-disable-next-line prefer-template
-  lien.href = 'photographe.html?id=' + photographe.id;
+
+  lien.href = `photographe.html?id=${photographe.id}`;
 
   const img = document.createElement('img');
-  // eslint-disable-next-line prefer-template
-  img.src = 'images/photographers/' + photographe.portrait;
+
+  img.src = `images/photographers/${photographe.portrait}`;
   lien.appendChild(img);
 
   const nom = document.createElement('h2');
@@ -40,6 +39,7 @@ export function lienPhotographe(photographe) {
   return lien;
 }
 
+// affichage des infos des chaque photogrphe //
 export function affichage(photographe) {
   const fichePhotographe = document.createElement('div');
   fichePhotographe.classList.add('fiche_photographe');
@@ -66,33 +66,26 @@ export function affichage(photographe) {
 
 function affichageDesPhotographes(photographers) {
   main.innerText = '';
-  // eslint-disable-next-line no-restricted-syntax
-  for (const photographe of photographers) {
+  photographers.forEach((photographe) => {
     affichage(photographe);
-  }
+  });
 }
 
 async function lecturePhotographes() {
   photographes = await getPhotographes();
-  // eslint-disable-next-line no-console
-  console.log('photographes: ', photographes);
-  // eslint-disable-next-line no-plusplus
   affichageDesPhotographes(photographes);
 }
 
+// filtre des photographes par leurs Tags //
 function initFilter() {
   const tagsInput = document.querySelectorAll('.tag');
-  // eslint-disable-next-line no-restricted-syntax
-  for (const input of tagsInput) {
-    // eslint-disable-next-line no-loop-func
+  tagsInput.forEach((input) => {
     input.addEventListener('click', (event) => {
       const tag = event.currentTarget.id;
       const filterResult = filterByTag(photographes, tag);
       affichageDesPhotographes(filterResult);
-      console.log('recherche par tag');
-      console.log('valeur du tag :', event.currentTarget.id);
     });
-  }
+  });
 }
 
 lecturePhotographes();

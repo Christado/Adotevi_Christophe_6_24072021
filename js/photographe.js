@@ -1,7 +1,5 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-shadow */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-
 import MediaFactory from './mediaFactory';
 import { getPhotographe, getMedia } from './service';
 import sort from './sort';
@@ -10,37 +8,35 @@ const params = new URLSearchParams(window.location.search);
 const idphotographe = params.get('id');
 let photographe = null;
 let photographeMedias = [];
-// eslint-disable-next-line no-console
-console.log(idphotographe);
 
 const main = document.querySelector('.conteneur');
 const totalikesText = document.createTextNode('');
 function handleLikeChange() {
   const nbrlike = totalikesText.nodeValue;
   totalikesText.nodeValue = Number(nbrlike) + 1;
-  console.log(nbrlike);
 }
-// eslint-disable-next-line no-shadow
-function lienPhotographe(photographe) {
+
+// affichage du portrait d'un photographe //
+function lienPhotographe(data) {
   const lien = document.createElement('a');
   lien.href = 'photographe.html';
 
   const img = document.createElement('img');
-  img.src = `images/photographers/${photographe.portrait}`;
+  img.src = `images/photographers/${data.portrait}`;
   lien.appendChild(img);
 
   return lien;
 }
 
-function tagPhotographe(photographe) {
+// affichage des tags de chaque photographe //
+function tagPhotographe(data) {
   const tag1 = document.createElement('nav');
   tag1.classList.add('tag1');
   const tag2 = document.createElement('ul');
   tag2.classList.add('tag');
-  const { tags } = photographe;
+  const { tags } = data;
 
-  // eslint-disable-next-line no-plusplus
-  for (let index = 0; index < tags.length; index++) {
+  for (let index = 0; index < tags.length; index += 1) {
     const tag = tags[index];
     const tagli = document.createElement('li');
     tagli.classList.add('tagselect');
@@ -52,26 +48,36 @@ function tagPhotographe(photographe) {
 
   return tag1;
 }
+// affichage du modal de contact //
+function showContactModal() {
+  const contactModal = document.querySelector('.contactModall');
+  contactModal.style.display = 'block';
+}
 
-export function affichage(photographe) {
+function showBgmodal() {
+  const bgmodal1 = document.querySelector('.bgrModal');
+  bgmodal1.style.display = 'block';
+}
+
+export function affichage(data) {
   const fichePhotographe = document.querySelector('section');
   fichePhotographe.classList.add('header_photographe');
 
-  const lien = lienPhotographe(photographe);
+  const lien = lienPhotographe(data);
   fichePhotographe.appendChild(lien);
 
   const nom1 = document.createElement('h2');
-  nom1.innerText = photographe.name;
+  nom1.innerText = data.name;
   fichePhotographe.appendChild(nom1);
 
   const lieux = document.createElement('p');
   lieux.classList.add('localisation');
-  lieux.innerText = `${photographe.city}, ${photographe.country}`;
+  lieux.innerText = `${data.city}, ${data.country}`;
   fichePhotographe.appendChild(lieux);
 
   const descrip1 = document.createElement('p');
   descrip1.classList.add('slogant');
-  descrip1.innerText = photographe.tagline;
+  descrip1.innerText = data.tagline;
   fichePhotographe.appendChild(descrip1);
 
   const coeur = document.createElement('i');
@@ -80,12 +86,12 @@ export function affichage(photographe) {
   tarifs.classList.add('tarif');
   totalikes.classList.add('likes');
   coeur.className = 'fas fa-heart fa-lg';
-  tarifs.innerText = `${photographe.price} € / jour `;
+  tarifs.innerText = `${data.price} € / jour `;
 
   fichePhotographe.appendChild(tarifs);
   tarifs.appendChild(totalikes);
   totalikes.append(totalikesText, coeur);
-  const tags = tagPhotographe(photographe);
+  const tags = tagPhotographe(data);
   fichePhotographe.appendChild(tags);
 
   main.appendChild(fichePhotographe);
@@ -98,15 +104,32 @@ export function affichage(photographe) {
   fichePhotographe.appendChild(engager);
 }
 
-function affichagNom(photographe) {
+function affichagNom(data) {
   const fichePhotographe = document.querySelector('.conteneur');
   const pageModal1 = document.querySelector('.contactModall');
   const nom2 = document.querySelector('.contact_modal__body__title');
-  nom2.innerHTML = `Contactez-moi <br> ${photographe.name} `;
+  nom2.innerHTML = `Contactez-moi <br> ${data.name} `;
   fichePhotographe.appendChild(pageModal1);
   pageModal1.appendChild(nom2);
 }
+// affichage media //
+export function affichageMedia(media) {
+  const mediaType = media.image ? 'image' : 'video';
+  media.photographeName = photographe.name;
+  const mediaFactory = new MediaFactory(mediaType, media, photographeMedias, handleLikeChange);
+  const contMedia = document.querySelector('.portfolio--photo-container');
+  contMedia.appendChild(mediaFactory.htmlContent());
+}
 
+function affichageMedias(medias) {
+  const contMedia = document.querySelector('.portfolio--photo-container');
+  contMedia.innerText = '';
+  for (let index = 0; index < medias.length; index += 1) {
+    const mediaphotographe = medias[index];
+    affichageMedia(mediaphotographe);
+  }
+}
+// triage sort by //
 function trier() {
   const fichePhotographe = document.querySelector('section');
   fichePhotographe.classList.add('header_photographe');
@@ -135,9 +158,7 @@ function trier() {
   triSelect.append(optionPopul, optionName, optionDate);
   triage.appendChild(triSelect);
   triSelect.addEventListener('change', (event) => {
-    console.log('tri par: ', event.target.value);
     const medias = sort(photographeMedias, event.target.value);
-    console.table(medias);
     if (medias) { affichageMedias(medias); }
   });
   const derouleur = document.createElement('i');
@@ -228,42 +249,11 @@ function createFormFields() {
   `;
   contactForm.appendChild(message);
 }
-
-// Bouton du Modal
-function createModalButton() {
-  const modalBody = document.querySelector('.contact_modal__body');
-  const modalButton = document.createElement('button');
-  modalButton.className = 'button_contact_submit';
-  modalButton.type = 'submit';
-  modalButton.tabIndex = -1;
-  modalButton.innerText = 'Envoyer';
-  // eslint-disable-next-line no-use-before-define
-  modalButton.addEventListener('click', () => { closeContactModal(); });
-  modalButton.addEventListener('click', () => { closeBgmodal(); });
-  modalBody.appendChild(modalButton);
-}
-
-// Ouverture et Fermeture du modal //
-
-function showContactModal() {
-  const contactModal = document.querySelector('.contactModall');
-  contactModal.style.display = 'block';
-}
-
-function showBgmodal() {
-  const bgmodal1 = document.querySelector('.bgrModal');
-  bgmodal1.style.display = 'block';
-}
-
+// fermeture du modal  et récupération des données inscrits //
 function closeBgmodal() {
   const bgmodal1 = document.querySelector('.bgrModal');
   bgmodal1.style.display = 'none';
 }
-
-// function eventOnOpen() {
-// const openButton = document.querySelector('.container-profile__button');
-// openButton.addEventListener('click', () => showContactModal());
-// }
 
 function closeContactModal() {
   const contactModal = document.querySelector('.contactModall');
@@ -278,56 +268,42 @@ function closeContactModal() {
   contactModal.style.display = 'none';
 }
 
+// Bouton du Modal
+function createModalButton() {
+  const modalBody = document.querySelector('.contact_modal__body');
+  const modalButton = document.createElement('button');
+  modalButton.className = 'button_contact_submit';
+  modalButton.type = 'submit';
+  modalButton.tabIndex = -1;
+  modalButton.innerText = 'Envoyer';
+  modalButton.addEventListener('click', () => { closeContactModal(); });
+  modalButton.addEventListener('click', () => { closeBgmodal(); });
+  modalBody.appendChild(modalButton);
+}
+
+// ecoute au clic pour Fermeture du modal //
+
 function eventOnClose() {
   const closeButton = document.querySelector('.close_button');
   closeButton.addEventListener('click', () => closeContactModal());
   closeButton.addEventListener('click', () => closeBgmodal());
 }
 
-// function soumettre() {
-// const soumis = document.querySelector('.button_contact_submit');
-// soumis.addEventListener('click', () => closeContactModal());
-// }
-
-// eslint-disable-next-line no-unused-vars
-export function affichageMedia(media) {
-  const mediaType = media.image ? 'image' : 'video';
-  // eslint-disable-next-line no-param-reassign
-  media.photographeName = photographe.name;
-  const mediaFactory = new MediaFactory(mediaType, media, photographeMedias, handleLikeChange);
-  const contMedia = document.querySelector('.portfolio--photo-container');
-  contMedia.appendChild(mediaFactory.htmlContent());
-}
-
-function affichageMedias(medias) {
-  const contMedia = document.querySelector('.portfolio--photo-container');
-  contMedia.innerText = '';
-  for (let index = 0; index < medias.length; index += 1) {
-    const mediaphotographe = medias[index];
-    affichageMedia(mediaphotographe);
-  }
-}
-
 export async function loadMedia() {
   photographeMedias = await getMedia(idphotographe);
   const sommeLikes = photographeMedias.reduce((count, media) => count + media.likes, 0);
   totalikesText.nodeValue = sommeLikes;
-  console.log('Nombre de likes: ', sommeLikes);
   affichageMedias(photographeMedias);
 }
 
 export async function lecturePhotographe() {
   photographe = await getPhotographe(idphotographe);
-  console.log('photographe: ', photographe);
   affichage(photographe);
   affichagNom(photographe);
-
-  // soumettre();//
 }
 
 (function init() {
   lecturePhotographe();
-  // affichagNom();//
   loadMedia();
   trier();
   creationModal();
@@ -335,7 +311,6 @@ export async function lecturePhotographe() {
   createFormFields();
   createModalButton();
   showContactModal();
-  // eventOnOpen();//
   closeContactModal();
   eventOnClose();
 }());

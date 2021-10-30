@@ -1,4 +1,4 @@
-import { openLightBox } from './lightBox';
+import openLightBox from './lightBox';
 
 export default class ImageFactory {
   constructor(data, medias, onLikeChange) {
@@ -7,7 +7,8 @@ export default class ImageFactory {
     this.onLikeChange = onLikeChange;
   }
 
-  // eslint-disable-next-line no-unused-vars
+  // récupération et affichage des médias images, titres, likes et prix //
+
   fabriqueImage(data) {
     this.mediaData = data;
     const figcont = document.createElement('section');
@@ -16,7 +17,7 @@ export default class ImageFactory {
     const media = document.createElement('img');
     media.className = 'photo-picture';
     media.src = `./img/${this.mediaData.photographeName.split(' ')[0]}/${this.mediaData.image}`;
-    media.alt = this.mediaData.image;
+    media.alt = this.mediaData.alt;
     const footer = document.createElement('footer');
     footer.className = 'photo-footer';
 
@@ -32,7 +33,6 @@ export default class ImageFactory {
     const affspan1 = document.createElement('span');
     affspan1.className = 'photo-footer__likes';
     affspan1.append(nbrlikes, affspan3);
-    // affspan1.innerHTML = "12 <i class='fas fa-heart'></i>";//
     footer.appendChild(affspan1);
 
     const affspan2 = document.createElement('span');

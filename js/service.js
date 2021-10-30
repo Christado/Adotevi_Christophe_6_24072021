@@ -18,14 +18,13 @@ export const getPhotographes = async () => {
 
 export const getPhotographe = async (id) => {
   const photographers = await getPhotographes();
-  // eslint-disable-next-line eqeqeq
-  const photographe = photographers.find((photographe1) => photographe1.id == id);
+
+  const photographe = photographers.find((photographe1) => photographe1.id === Number(id));
   return photographe;
 };
 
 export const getMedia = async (id) => {
   const donnees = await lecture();
   const medias = donnees.media;
-  // eslint-disable-next-line eqeqeq
-  return medias.filter((media) => media.photographerId == id);
+  return medias.filter((media) => media.photographerId === Number(id));
 };

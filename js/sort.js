@@ -28,7 +28,6 @@ function sortByTitle(medias) {
   return sortedMedias;
 }
 
-// eslint-disable-next-line consistent-return
 const sort = (medias, tag) => {
   if (tag === 'populaire') {
     return sortByPopularity(medias);
@@ -41,6 +40,7 @@ const sort = (medias, tag) => {
   if (tag === 'Title') {
     return sortByTitle(medias);
   }
+  return [];
 };
 
 export default sort;
