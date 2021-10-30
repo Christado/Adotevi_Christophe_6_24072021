@@ -1,10 +1,7 @@
-/* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
-
 const lightbox = document.querySelector('.modal');
 const closeLightbox = document.querySelector('.closeIcone');
-const image = document.querySelector('.mediaContent');
-// const video = document.querySelector('.mediaContent');//
+const image = document.querySelector('.mediaContent.image');
+const video = document.querySelector('.mediaContent.video');
 const items = document.querySelector('.items');
 const prevButton = document.querySelector('.prev');
 const nextButton = document.querySelector('.next');
@@ -14,7 +11,20 @@ closeLightbox.addEventListener('click', (event) => {
   event.preventDefault();
   lightbox.style.display = 'none';
 });
+lightbox.addEventListener('keydown', (event) => {
+  console.log(event.key);
+  console.log(event.keyCode);
 
+  if (event.keyCode === 37) {
+    previous(event);
+    prevButton.focus();
+  }
+
+  if (event.keyCode === 39) {
+    next(event);
+    nextButton.focus();
+  }
+});
 function showMedialist(mediaList) {
   items.innerText = '';
   // eslint-disable-next-line no-restricted-syntax
@@ -39,7 +49,18 @@ function showMedialist(mediaList) {
 } */
 
 function showSelectedMedia(media) {
-  image.src = `./img/${media.photographeName.split(' ')[0]}/${media.image}`;
+
+  if (media.image) {
+    video.style.display = 'none';
+    image.src = `./img/${media.photographeName.split(' ')[0]}/${media.image}`;
+    image.style.display = 'block';
+  } else {
+
+    image.style.display = 'none';
+    video.src = `./img/${media.photographeName.split(' ')[0]}/${media.video}`;
+    video.style.display = 'block';
+  }
+  
 }
 
 function next(event) {
@@ -81,9 +102,10 @@ export const openLightBox = (media, mediaList) => {
   lightbox.style.display = 'flex';
   showSelectedMedia(media);
 
-  showMedialist(mediaList);
+  //showMedialist(mediaList);//
   toucheDirect();
 
   selectedMediaIndex = mediaList.indexOf(media);
   medias = mediaList;
+  prevButton.focus();
 };
