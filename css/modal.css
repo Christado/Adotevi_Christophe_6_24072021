@@ -96,4 +96,14 @@ display: none;
 }
 
 
+.prev, .next:focus {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+
+
+
+
 
