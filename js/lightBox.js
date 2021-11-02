@@ -14,10 +14,12 @@ function showSelectedMedia(media) {
   if (media.image) {
     video.style.display = 'none';
     image.src = `./img/${media.photographeName.split(' ')[0]}/${media.image}`;
+    image.alt = media.alt;
     image.style.display = 'block';
   } else {
     image.style.display = 'none';
     video.src = `./img/${media.photographeName.split(' ')[0]}/${media.video}`;
+    video.alt = media.alt;
     video.style.display = 'block';
   }
 }
