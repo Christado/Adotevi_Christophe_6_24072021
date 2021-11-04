@@ -30,6 +30,7 @@ export function lienPhotographe(photographe) {
   const img = document.createElement('img');
 
   img.src = `images/photographers/${photographe.portrait}`;
+  img.alt = photographe.name;
   lien.appendChild(img);
 
   const nom = document.createElement('h2');

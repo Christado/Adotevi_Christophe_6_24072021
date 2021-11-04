@@ -3,6 +3,7 @@
 const lightbox = document.querySelector('.modal');
 const closeLightbox = document.querySelector('.closeIcone');
 const image = document.querySelector('.mediaContent.image');
+const titreImage = document.querySelector('.titreImg');
 const video = document.querySelector('.mediaContent.video');
 const prevButton = document.querySelector('.prev');
 const nextButton = document.querySelector('.next');
@@ -15,11 +16,15 @@ function showSelectedMedia(media) {
     video.style.display = 'none';
     image.src = `./img/${media.photographeName.split(' ')[0]}/${media.image}`;
     image.alt = media.alt;
+    titreImage.innerText = media.title;
+    titreImage.alt = media.title;
     image.style.display = 'block';
   } else {
     image.style.display = 'none';
     video.src = `./img/${media.photographeName.split(' ')[0]}/${media.video}`;
     video.alt = media.alt;
+    titreImage.innerText = media.title;
+    titreImage.alt = media.title;
     video.style.display = 'block';
   }
 }
@@ -49,6 +54,13 @@ function previous(event) {
 closeLightbox.addEventListener('click', (event) => {
   event.preventDefault();
   lightbox.style.display = 'none';
+});
+
+lightbox.addEventListener('keydown', (event) => {
+  if (event.keyCode === 27) {
+    lightbox.style.display = 'none';
+    lightbox.focus();
+  }
 });
 
 // code navigation avec touche du clavier //

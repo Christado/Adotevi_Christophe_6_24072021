@@ -49,6 +49,19 @@ export default class ImageFactory {
       nbrlikes.nodeValue = this.mediaData.likes;
       this.onLikeChange();
     });
+
+    /* affspan3.addEventListener('click', () => {
+      if (affspan1 === this.mediaData.likes) {
+        this.mediaData.likes += 1;
+        nbrlikes.nodeValue = this.mediaData.likes;
+        this.onLikeChange();
+      } else {
+        this.mediaData.likes -= 1;
+        nbrlikes.nodeValue = this.mediaData.likes;
+        this.onLikeChange();
+      }
+    }); */
+
     media.addEventListener('click', () => {
       openLightBox(this.mediaData, this.medias);
     });

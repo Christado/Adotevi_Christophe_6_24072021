@@ -23,6 +23,7 @@ function lienPhotographe(data) {
 
   const img = document.createElement('img');
   img.src = `images/photographers/${data.portrait}`;
+  img.alt = data.alt;
   lien.appendChild(img);
 
   return lien;
@@ -285,8 +286,17 @@ function createModalButton() {
 
 function eventOnClose() {
   const closeButton = document.querySelector('.close_button');
+  const contactModal = document.querySelector('.contactModall');
   closeButton.addEventListener('click', () => closeContactModal());
   closeButton.addEventListener('click', () => closeBgmodal());
+
+  contactModal.addEventListener('keydown', (event) => {
+    if (event.keyCode === 27) {
+      closeContactModal();
+      closeBgmodal();
+      contactModal.focus();
+    }
+  });
 }
 
 export async function loadMedia() {
