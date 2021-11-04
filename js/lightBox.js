@@ -16,6 +16,7 @@ function showSelectedMedia(media) {
     video.style.display = 'none';
     image.src = `./img/${media.photographeName.split(' ')[0]}/${media.image}`;
     image.alt = media.alt;
+    image.ariaLabel = media.title;
     titreImage.innerText = media.title;
     titreImage.alt = media.title;
     image.style.display = 'block';
@@ -23,6 +24,7 @@ function showSelectedMedia(media) {
     image.style.display = 'none';
     video.src = `./img/${media.photographeName.split(' ')[0]}/${media.video}`;
     video.alt = media.alt;
+    video.ariaLabel = media.title;
     titreImage.innerText = media.title;
     titreImage.alt = media.title;
     video.style.display = 'block';

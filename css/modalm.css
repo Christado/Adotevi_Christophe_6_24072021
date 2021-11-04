@@ -23,6 +23,13 @@
     background-color: white;
   }
 
+  .titreImg {
+    font-size: 15px;
+    color: brown;
+    position: fixed;
+    top: 85%;
+}
+
   main {
     /*display: flex;
     flex-direction: column;

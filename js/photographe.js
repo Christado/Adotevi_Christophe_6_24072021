@@ -100,6 +100,7 @@ export function affichage(data) {
   const engager = document.createElement('button');
   engager.classList.add('container-profile__button');
   engager.innerText = 'Contactez-moi';
+  engager.ariaHasPopup = 'dialog';
   engager.addEventListener('click', () => showContactModal());
   engager.addEventListener('click', () => showBgmodal());
   fichePhotographe.appendChild(engager);
@@ -144,15 +145,18 @@ function trier() {
 
   const optionPopul = document.createElement('option');
   optionPopul.className = ('optselect1');
+  optionPopul.ariaLabel = 'sort by popularity';
   optionPopul.value = 'populaire';
   optionPopul.selected = true;
   optionPopul.innerText = 'Popularité';
   const optionName = document.createElement('option');
   optionName.className = ('optselect2');
+  optionName.ariaLabel = 'sort by title';
   optionName.value = 'Title';
   optionName.innerText = 'Titre';
   const optionDate = document.createElement('option');
   optionDate.className = ('optselect3');
+  optionDate.ariaLabel = 'sort by date';
   optionDate.value = 'date';
   optionDate.innerText = 'Date';
   triSelect.classList.add('popularity-button');
@@ -274,6 +278,7 @@ function createModalButton() {
   const modalBody = document.querySelector('.contact_modal__body');
   const modalButton = document.createElement('button');
   modalButton.className = 'button_contact_submit';
+  modalButton.ariaLabel = 'submit_button';
   modalButton.type = 'submit';
   modalButton.tabIndex = -1;
   modalButton.innerText = 'Envoyer';

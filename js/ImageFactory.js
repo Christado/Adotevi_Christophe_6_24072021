@@ -14,6 +14,7 @@ export default class ImageFactory {
     const figcont = document.createElement('section');
     this.media3 = document.createElement('figure');
     this.media3.className = 'photo photo-3rd';
+    this.media3.ariaLabel = this.mediaData.title;
     const media = document.createElement('img');
     media.className = 'photo-picture';
     media.src = `./img/${this.mediaData.photographeName.split(' ')[0]}/${this.mediaData.image}`;

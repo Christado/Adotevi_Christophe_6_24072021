@@ -13,6 +13,7 @@ export default class VideoFactory {
     this.mediaData = data;
     this.media = document.createElement('figure');
     this.media.className = 'photo photo-3rd';
+    this.media.ariaLabel = this.mediaData.title;
     const video = document.createElement('video');
     video.controls = 'photo-picture';
     video.style.width = ' inherit ';

@@ -35,6 +35,7 @@ export function lienPhotographe(photographe) {
 
   const nom = document.createElement('h2');
   nom.innerText = photographe.name;
+  nom.ariaLabel = photographe.name;
   lien.appendChild(nom);
 
   return lien;
